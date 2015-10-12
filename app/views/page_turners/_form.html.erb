@@ -1,0 +1,44 @@
+<%= form_for(@page_turner) do |f| %>
+  <% if @page_turner.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@page_turner.errors.count, "error") %> prohibited this page_turner from being saved:</h2>
+
+      <ul>
+      <% @page_turner.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+    <div class="form-group">
+      <%= f.label :batch_id, 'Collection ID' %>
+      <%= f.text_field :batch_id, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :title %>
+      <%= f.text_field :title, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :template, 'Page template' %>
+      <%= f.text_field :template, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :solr_field, 'Page Solr field' %>
+      <%= f.text_field :solr_field, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :page_filename, 'Page filename' %>
+      <%= f.text_field :page_filename, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :cover, 'ID of cover object' %>
+      <%= f.text_field :cover, class: 'form-control' %>
+    </div>
+    <div class="form-group">
+      <%= f.label :preamble, 'IDs of preamble objects' %>
+      <%= f.text_field :preamble, value: @page_turner.preamble.join(','), class: 'form-control'  %>
+    </div>
+
+    <%= f.submit %>
+<% end %>

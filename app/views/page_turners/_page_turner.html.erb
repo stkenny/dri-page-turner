@@ -1,0 +1,45 @@
+<%= javascript_include_tag "turnjs/turn.js" %>
+
+<h2><%= @page_turner.title %></h2>
+
+<div id="book" class="book">
+</div>
+
+<script type="text/javascript">
+
+  $(window).ready(function() {
+    $('#book').turn({pages: 1000});
+  });
+	
+  $('#book').bind('turning', function(e, page) {
+    var range = $(this).turn('range', page);
+    for (page = range[0]; page<=range[1]; page++)
+      addPage(page, $(this));
+    });
+	
+  $(window).bind('keydown', function(e){
+
+    if (e.keyCode==37)
+      $('#book').turn('previous');
+    else if (e.keyCode==39)
+      $('#book').turn('next');
+			
+  });
+
+  function addPage(page, book) {
+    // Check if the page is not in the book
+    if (!book.turn('hasPage', page)) {
+      // Create an element for this page
+      var element = $('<div />').html('Loading…');
+      // Add the page
+      book.turn('addPage', element, page);
+      // Get the data for this page   
+      $.ajax({url: "<%= book_url(@page_turner) %>/pages/"+page})
+        .done(function(data) {
+          element.html(data);
+         });
+      }
+    }
+
+</script>
+
