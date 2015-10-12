@@ -6,8 +6,14 @@ class DriClient
     endpoint = Settings.dri.endpoint
     user = Settings.dri.user
     pass = Settings.dri.password
+    token = Settings.dri.token
 
-    @site = RestClient::Resource.new endpoint, user, pass
+    if pass.nil? && token
+      @auth_params = "user_email=#{user}&user_token=#{token}"
+      @site = RestClient::Resource.new endpoint
+    else
+       @site = RestClient::Resource.new endpoint, user, pass
+    end
   end
 
   def page_to_object_id(page_id, solr_field)
@@ -35,11 +41,19 @@ class DriClient
   private
 
   def query(query_param)
-    get("catalog?q=#{query_param}")
+    path = 'catalog?'
+    path << "#{@auth_params}&" if @auth_params
+
+    puts "#{path}q=#{query_param}"
+    
+    get("#{path}q=#{query_param}")
   end
 
   def assets(object_id)
-    post('get_assets', {'objects' => [ { 'pid' => "#{object_id}" } ]})
+    path = 'get_assets'
+    path << "?#{@auth_params}"
+    
+    post(path, {'objects' => [ { 'pid' => "#{object_id}" } ]})
   end
 
   def get(path)
