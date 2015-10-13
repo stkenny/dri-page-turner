@@ -1,0 +1,89 @@
+
+.texture {
+  position: absolute;
+  left: -9999px;
+}
+#bookcase-cont {
+  float: left;
+  height: 390px;
+  width: 100%;
+  background-image: url('/assets/border.png');
+  box-shadow: 0 0 120px 60px rgba(0, 0, 0, 0.5), inset 0 0 20px rgba(0, 0, 0, 0.8);
+}
+#hidden-container {
+  position: absolute;
+  left: -9999px;
+}
+#bookcase {
+  position: absolute;
+  height: 360px;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  background-image: url('/assets/wood.png');
+  box-shadow: inset 0 0 120px rgba(0, 0, 0, 0.8);
+}
+#bookcase .book {
+  border-width: 0,0,0,0;
+  border-radius: 4px;
+  position: relative;
+  bottom: 0;
+  overflow: hidden;
+  float: left;
+  z-index: 0;
+  -moz-transition: all 0.1s, -moz-transform 0.1s;
+  -webkit-transition: all 0.1s, -webkit-transform 0.1s;
+  -o-transition: all 0.1s, -o-transform 0.1s;
+  transition: all 0.1s, transform 0.1s;
+  transform: scale(1, 1);
+  -ms-transform: scale(1, 1);
+  /* IE 9 */
+  -webkit-transform: scale(1, 1);
+  /* Safari and Chrome */
+  transform-origin: 50% 100%;
+  -ms-transform-origin: 50% 100%;
+  /* IE 9 */
+  -webkit-transform-origin: 50% 100%;
+  /* Safari and Chrome */
+}
+#bookcase .book:hover {
+  box-shadow: -3px 20px 20px rgba(0, 0, 0, 0.8);
+  transform: scale(1.1, 1.02);
+  -ms-transform: scale(1.1, 1.02);
+  /* IE 9 */
+  -webkit-transform: scale(1.1, 1.02);
+  /* Safari and Chrome */
+  z-index: 9999;
+}
+#bookcase .book .canvas-texture {
+  border: none;
+  position: absolute;
+  z-index: 0;
+}
+#bookcase .book .booktext {
+  white-space: nowrap;
+  color: #bba217;
+  font-size: 1.25em;
+  font-family: Garamond, "Adobe Garamond Pro";
+  speak: none;
+  font-smoothing: antialiased;
+  -webkit-font-smoothing: antialiased;
+  font-weight: 900;
+  text-decoration: none;
+  text-shadow: 1px 1px 1px rgba(255, 255, 255, 0.2), -1px -1px 1px rgba(0, 0, 0, 0.8);
+  display: block;
+  position: relative;
+  left: 50%;
+  transform-origin: 0% 50%;
+  -webkit-transform-origin: 0% 50%;
+  -moz-transform-origin: 0% 50%;
+  -o-transform-origin: 0% 50%;
+  -webkit-transform: rotate(90deg);
+  -moz-transform: rotate(90deg);
+  -o-transform: rotate(90deg);
+}
+#bookcase .book .booktext i {
+  font-size: 0.75em;
+  margin-bottom: 0.2em;
+}
+

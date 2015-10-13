@@ -8,7 +8,8 @@ Rails.application.routes.draw do
   # root 'welcome#index'
 
   match 'books/:book_id/pages/:id' => 'page_turners#page', :via => :get, :as => :book_pages
-  match 'books/:id' => 'page_turners#show', :via => :get, :as => :book
+  #match 'books/:id' => 'books#show', :via => :get, :as => :book
+  resources :books
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

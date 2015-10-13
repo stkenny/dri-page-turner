@@ -18,30 +18,25 @@ class PageTurner < ActiveRecord::Base
 
     object_id = translate_page_id(page_id, self.solr_field)
 
-    url = client.page_url(object_id, self.page_filename) if object_id
-    puts url
-    url
+    client.page_url(object_id, self.page_filename) if object_id
   end
 
   private
 
-    def cover_url
-      url = client.page_url(self.cover, self.page_filename)
-      puts url
-      url
+  def cover_url
+    client.page_url(self.cover, self.page_filename)
+  end
+
+  def preamble_urls
+    urls = []
+    self.preamble.each do |p|
+      urls << client.page_url(p, self.page_filename)
     end
 
-    def preamble_urls
-      urls = []
-      self.preamble.each do |p|
-        urls << client.page_url(p, self.page_filename)
-      end
-
-      puts urls
-      urls
-    end
+    urls
+  end
     
-    def offset
-      1 + self.preamble.size
-    end
+  def offset
+    1 + self.preamble.size
+  end
 end
