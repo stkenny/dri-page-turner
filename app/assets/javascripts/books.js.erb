@@ -49,8 +49,8 @@ $(function(){
     });
     
     // And here we set the src attribute of each image
-    imgs.leather.src = '/assets/leather.png';
-    imgs.canvas.src = '/assets/canvas.png';
+    imgs.leather.src = '<%= asset_path('leather.png') %>';
+    imgs.canvas.src = '<%= asset_path('canvas.png') %>';
 });
 
 function addBooks (books) {
