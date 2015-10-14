@@ -5,7 +5,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
-  root 'book#index'
+  root 'books#index'
 
   match 'books/:book_id/pages/:id' => 'page_turners#page', :via => :get, :as => :book_pages
   #match 'books/:id' => 'books#show', :via => :get, :as => :book
