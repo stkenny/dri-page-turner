@@ -1,25 +1,82 @@
-<div id="book" class="book">
+<div class="t">
+  <div class="tc rel">
+    <div id="book" class="book">
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript">
 
-  $(window).ready(function() {
-    $('#book').turn({pages: <%= @page_turner.total_pages %>});
-  });
-	
-  $('#book').bind('turning', function(e, page) {
+(function () {
+    'use strict';
+
+    var module = {
+        ratio: 1.38,
+        init: function (id) {
+            var me = this;
+
+            // if older browser then don't run javascript
+            if (document.addEventListener) {
+                this.el = document.getElementById(id);
+                this.resize();
+                this.plugins();
+
+                // on window resize, update the plugin size
+                window.addEventListener('resize', function (e) {
+                    var size = me.resize();
+                    $(me.el).turn('size', size.width, size.height);
+                });
+            }
+        },
+        resize: function () {
+            // reset the width and height to the css defaults
+            this.el.style.width = '';
+            this.el.style.height = '';
+
+            var width = this.el.clientWidth,
+                height = Math.round(width / this.ratio),
+                padded = Math.round(document.body.clientHeight * 0.9);
+
+            // if the height is too big for the window, constrain it
+            if (height > padded) {
+                height = padded;
+                width = Math.round(height * this.ratio);
+            }
+
+            // set the width and height matching the aspect ratio
+            this.el.style.width = width + 'px';
+            this.el.style.height = height + 'px';
+
+            return {
+                width: width,
+                height: height
+            };
+        },
+        plugins: function () {
+            // run the plugin
+            $(this.el).turn({
+                gradients: true,
+                acceleration: true,
+                pages: <%= @page_turner.total_pages %>
+            });
+            // hide the body overflow
+            document.body.className = 'hide-overflow';
+        }
+    };
+
+    $('#book').bind('turning', function(e, page) {
     var range = $(this).turn('range', page);
     for (page = range[0]; page<=range[1]; page++)
       addPage(page, $(this));
     });
-	
+
   $(window).bind('keydown', function(e){
 
     if (e.keyCode==37)
       $('#book').turn('previous');
     else if (e.keyCode==39)
       $('#book').turn('next');
-			
+
   });
 
   function addPage(page, book) {
@@ -29,12 +86,15 @@
       var element = $('<div />').html('Loading…');
       // Add the page
       book.turn('addPage', element, page);
-      // Get the data for this page   
+      // Get the data for this page
       $.ajax({url: "<%= book_url(@page_turner) %>/pages/"+page})
         .done(function(data) {
           element.html(data);
          });
       }
     }
+
+    module.init('book');
+}());
 
 </script>
