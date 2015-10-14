@@ -61,6 +61,6 @@ class PageTurnersController < ApplicationController
 
   def page_turner_params
     params[:page_turner][:preamble] ||= []
-    params.require(:page_turner).permit(:batch_id, :cover, :template, :title, :solr_field, :page_filename, preamble: [])
+    params.require(:page_turner).permit(:batch_id, :cover, :template, :title, :solr_field, :page_filename, :total_pages, preamble: [])
   end
 end

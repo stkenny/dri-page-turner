@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20151011205256) do
+ActiveRecord::Schema.define(version: 20151014110849) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -26,6 +26,7 @@ ActiveRecord::Schema.define(version: 20151011205256) do
     t.datetime "updated_at"
     t.string   "solr_field"
     t.string   "page_filename"
+    t.integer  "total_pages"
   end
 
 end

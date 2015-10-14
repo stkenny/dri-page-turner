@@ -39,6 +39,10 @@
       <%= f.label :preamble, 'IDs of preamble objects' %>
       <%= f.text_field :preamble, value: @page_turner.preamble.join(','), class: 'form-control'  %>
     </div>
+    <div class="form-group">
+      <%= f.label :total_pages, 'Total number of pages' %>
+      <%= f.text_field :total_pages, class: 'form-control' %>
+    </div>
 
     <%= f.submit %>
 <% end %>

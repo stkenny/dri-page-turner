@@ -9,12 +9,16 @@ class PageTurner < ActiveRecord::Base
 
   def page_url(page)
     page = page.to_i
-  
+ 
+    puts "Getting page #{page}"
+ 
     return cover_url if page == 1
     return preamble_urls[page - 2] if (page > 1 && page <= self.preamble.size + 1)  
      
     page = page - offset
     page_id = self.template % page
+
+    puts "Page ID: #{page_id}"
 
     object_id = translate_page_id(page_id, self.solr_field)
 
@@ -37,6 +41,6 @@ class PageTurner < ActiveRecord::Base
   end
     
   def offset
-    1 + self.preamble.size
+    self.preamble.present? ? 1 + self.preamble.size: 0
   end
 end

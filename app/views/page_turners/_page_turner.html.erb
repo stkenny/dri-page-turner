@@ -4,7 +4,7 @@
 <script type="text/javascript">
 
   $(window).ready(function() {
-    $('#book').turn({pages: 1000});
+    $('#book').turn({pages: <%= @page_turner.total_pages %>});
   });
 	
   $('#book').bind('turning', function(e, page) {
