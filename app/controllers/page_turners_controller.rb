@@ -1,4 +1,5 @@
 class PageTurnersController < ApplicationController
+  http_basic_authenticate_with name: Settings.auth.user, password: Settings.auth.password, except: [:show, :page]
 
   def new
    @page_turner = PageTurner.new
